@@ -44,19 +44,21 @@ start=coordinates[int(input())-1]
 end=coordinates[int(input())-1]
 img=cv2.imread(map_path,cv2.IMREAD_GRAYSCALE)
 img2=cv2.imread(map_path)
-for p in range(0,img.shape[0]):
-    for q in range(0,img.shape[1]):
-        if img[p,q]<200:
-            img[p,q]=255
-        else:
-            img[p,q]=0
+dark=img<200
+img[img>=200]=0
+img[dark]=255
 node_list=[start]
 parent_node=[0]
 threshold=7
 cv2.ellipse(img2,(end[1],end[0]),(5,5),0,0,360,(0,0,255),-1)
 cv2.ellipse(img2,(start[1],start[0]),(5,5),0,0,360,(255,0,0),-1)
 while True:
-    x,y=np.random.randint(0,img.shape[0]),np.random.randint(0,img.shape[1])
+    # Adding an enhancement where the random node generation is a bit biased and generates nodes nearer to the end point
+    ind2,dist=closest(node_list,end)
+    radius=min(dist,150)
+    x,y=np.random.randint(max(node_list[ind2][0]-radius,0),min(node_list[ind2][0]+radius,img.shape[0])),np.random.randint(max(node_list[ind2][1]-radius,0),min(node_list[ind2][1]+radius,img.shape[1]))
+
+    # x,y=np.random.randint(0,img.shape[0]),np.random.randint(0,img.shape[1])
     if(img[x,y]!=0):
         continue
     ind,distance=closest(node_list,[x,y])
