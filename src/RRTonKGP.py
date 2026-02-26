@@ -3,6 +3,7 @@ import cv2
 import matplotlib.pyplot as plt
 import os
 
+
 script_dir = os.path.dirname(__file__)
 root_dir = os.path.dirname(script_dir)
 map_path = os.path.join(root_dir, 'assets', 'Map of IIT KGP.png')
