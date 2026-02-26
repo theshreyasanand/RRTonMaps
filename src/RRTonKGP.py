@@ -1,6 +1,11 @@
 import numpy as np
 import cv2
 import matplotlib.pyplot as plt
+import os
+
+script_dir = os.path.dirname(__file__)
+root_dir = os.path.dirname(script_dir)
+map_path = os.path.join(root_dir, 'assets', 'Map of IIT KGP.png')
 
 def checkValid(x_1,y_1,x_2,y_2,image):
     mask = np.zeros_like(image, dtype=np.uint8)
@@ -36,8 +41,8 @@ coordinates=[[58,721],[130,297],[187,692],[297,600],[239,1042],[203,936],[207,41
 
 start=coordinates[int(input())-1]
 end=coordinates[int(input())-1]
-img=cv2.imread(r"Map of IIT KGP.png",cv2.IMREAD_GRAYSCALE)
-img2=cv2.imread(r"Map of IIT KGP.png")
+img=cv2.imread(map_path,cv2.IMREAD_GRAYSCALE)
+img2=cv2.imread(map_path)
 for p in range(0,img.shape[0]):
     for q in range(0,img.shape[1]):
         if img[p,q]<200:
